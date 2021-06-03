@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Text area character counter</title>
+        <style>
+            textarea {
+                width: 400px;
+                height: 50px;
+            }
+            .red {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <textarea class="txtLimits"></textarea>
+            <div class="output"></div>
+        </div>
+
+        <script>
+            const txt = document.querySelector('textarea');
+
+            // txt.addEventListener('change', textCounter);
+            // txt.addEventListener('keydown', textCounter);
+            // txt.addEventListener('keyup', textCounter);
+
+            const eventListenerArray = ['change', 'keydown', 'keyup'];
+
+            eventListenerArray.forEach((signCount) => {
+                txt.addEventListener(signCount, textCounter);
+            });
+
+            function textCounter(text, maxLength, warnLength, output) {
+                // console.log(text);
+
+                maxLength = 10;
+                warnLength = 5;
+
+                const textLengthCount = txt.value.length;
+                // console.log(textLengthCount);
+
+                if (textLengthCount > maxLength) {
+                    // console.log(txt.value.substring(0, maxLength));
+                    txt.value = txt.value.substring(0, maxLength);
+                }
+
+                output = document.querySelector('.output');
+
+                if (textLengthCount > warnLength) {
+                    const characterCount = maxLength - textLengthCount;
+                    const warnText = `<p class="red">You have only ${characterCount} characters left</p>`;
+                    // console.log(warnText);
+                    output.innerHTML = warnText;
+                } else {
+                    output.innerHTML = '';
+                }
+            }
+        </script>
+    </body>
+</html>
